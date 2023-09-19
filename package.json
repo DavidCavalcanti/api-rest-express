@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "API REST with Node.js",
   "main": "index.js",
+  "type": "module",
   "scripts": {
+    "dev": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,6 +23,7 @@
   },
   "dependencies": {
     "express": "^4.18.2",
+    "mongodb": "^6.1.0",
     "mongoose": "^7.5.1"
   }
 }
