@@ -40,6 +40,16 @@ class LivroController {
         }
     }
 
+    static async deletarLivro(req, res) {
+        try {
+            const { id } = req.params
+            await livro.findByIdAndDelete(id);
+            res.status(200).json({ message: "Livro excluído com sucesso!" })
+        } catch (Erro) {
+            res.status(500).json({ message: `${erro} - falha na exclusão` });
+        }
+    }
+
 };
 
 export default LivroController;
