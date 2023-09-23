@@ -23,7 +23,7 @@ class LivroController {
 
     static async cadastrarLivro(req, res) {
         try {
-            const novoLivro = await livro.create(req.boby);
+            const novoLivro = await livro.create(req.body);
             res.status(201).json({ message: "Criado com sucesso", livro: novoLivro });
         } catch (erro) {
             res.status(500).json({ message: `${erro} - falha ao cadastrar livro` });
