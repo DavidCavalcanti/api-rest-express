@@ -6,8 +6,18 @@ class LivroController {
         try {
             const livrosResultado = await livro.find();
             res.status(200).json(livrosResultado)
-        } catch (err) {
-            res.status(500).json(err);
+        } catch (erro) {
+            res.status(500).json({ message: `${erro.message} - Falha na requisição` });
+        }
+    }
+
+    static async listarLivroID(req, res) {
+        try {
+            const id = req.params.id;
+            const livroID = await livro.findById(id);
+            res.status(200).json(livroID);
+        } catch (erro) {
+            res.status(500).json({ message: `${erro.message} - Falha na requisição do livro` });
         }
     }
 
@@ -17,6 +27,16 @@ class LivroController {
             res.status(201).json({ message: "Criado com sucesso", livro: novoLivro });
         } catch (erro) {
             res.status(500).json({ message: `${erro} - falha ao cadastrar livro` });
+        }
+    }
+
+    static async atualizarLivro(req, res) {
+        try {
+            const { id } = req.params;
+            await livro.findByIdAndUpdate(id, req.body);
+            res.status(200).json({ message: "livro atualizado!" });
+        } catch (erro) {
+            res.status(500).json({ message: `${erro} - falha na atualização` });
         }
     }
 

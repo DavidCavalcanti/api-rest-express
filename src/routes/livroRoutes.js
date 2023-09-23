@@ -5,6 +5,7 @@ const livroRoutes = express.Router();
 
 livroRoutes
     .get("/livros", LivroController.listarLivros)
+    .get("/livros/:id", LivroController.listarLivroID)
     .post("/livros", LivroController.cadastrarLivro)
 
 export default livroRoutes;
