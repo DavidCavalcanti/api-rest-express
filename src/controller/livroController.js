@@ -54,6 +54,16 @@ class LivroController {
         }
     }
 
+    static async listarLivroEditora(req, res) {
+        const editora = req.query.editora;
+        try {
+            const livroEditora = await livro.find({ editora: editora }); // 1º editora: é a propriedade editora que tem no banco. A 2º editora: é a variável que guarda a informação que chegará via rota
+            res.status(200).json(livroEditora);
+        } catch (erro) {
+            res.status(500).json({ message: `${erro} - falha na busca` });
+        }
+    }
+
 };
 
 export default LivroController;
