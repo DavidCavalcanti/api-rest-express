@@ -5,7 +5,7 @@ class LivroController {
 
     static async listarLivros(req, res) {
         try {
-            const livrosResultado = await livro.find();
+            const livrosResultado = await livro.find().populate("autor").exec();
             res.status(200).json(livrosResultado)
         } catch (erro) {
             res.status(500).json({ message: `${erro.message} - Falha na requisição` });
@@ -23,12 +23,9 @@ class LivroController {
     }
 
     static async cadastrarLivro(req, res) {
-        const novoLivro = req.body;
         try {
-            const autorEncontrado = await autor.findById(novoLivro.autor);
-            const livroCompleto = { ...novoLivro, autor: { ...autorEncontrado._doc } };
-            const livroCriado = await livro.create(livroCompleto);
-            res.status(201).json({ message: "Criado com sucesso", livro: livroCriado });
+            const novoLivro = await livro.create(req.body);
+            res.status(201).json({ message: "Criado com sucesso", livro: novoLivro });
         } catch (erro) {
             res.status(500).json({ message: `${erro} - falha ao cadastrar livro` });
         }
