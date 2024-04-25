@@ -11,52 +11,52 @@ class LivroController {
     }
   }
 
-  static async listarLivroID(req, res) {
+  static async listarLivroID(req, res, next) {
     try {
       const id = req.params.id;
       const Livro = await livro.findById(id);
       res.status(200).json({ message: "Livro encontrado!", Livro });
     } catch (erro) {
-      res.status(500).json({ message: `${erro.message} - Falha na requisição do livro` });
+      next(erro);
     }
   }
 
-  static async cadastrarLivro(req, res) {
+  static async cadastrarLivro(req, res, next) {
     try {
       const novoLivro = await livro.create(req.body);
       res.status(201).json({ message: "Criado com sucesso", livro: novoLivro });
     } catch (erro) {
-      res.status(500).json({ message: `${erro} - falha ao cadastrar livro` });
+      next(erro);
     }
   }
 
-  static async atualizarLivro(req, res) {
+  static async atualizarLivro(req, res, next) {
     try {
       const { id } = req.params;
       await livro.findByIdAndUpdate(id, req.body);
       res.status(200).json({ message: "livro atualizado!" });
     } catch (erro) {
-      res.status(500).json({ message: `${erro} - falha na atualização` });
+      next(erro);
     }
   }
 
-  static async deletarLivro(req, res) {
+  static async deletarLivro(req, res, next) {
     try {
       const { id } = req.params;
       await livro.findByIdAndDelete(id);
       res.status(200).json({ message: "Livro excluído com sucesso!" });
     } catch (erro) {
-      res.status(500).json({ message: `${erro} - falha na exclusão` });
+      next(erro);
     }
   }
 
-  static async listarLivroEditora(req, res) {
+  static async listarLivroEditora(req, res, next) {
     const editora = req.query.editora;
     try {
       const livroEditora = await livro.find({ editora: editora }); // 1º editora: é a propriedade editora que tem no banco. A 2º editora: é a variável que guarda a informação que chegará via rota
       res.status(200).json(livroEditora);
     } catch (erro) {
-      res.status(500).json({ message: `${erro} - falha na busca` });
+      next(erro);
     }
   }
 
