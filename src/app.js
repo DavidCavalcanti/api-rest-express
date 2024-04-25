@@ -1,7 +1,7 @@
 import express from "express";
 import connectDatabase from "./config/dbConnect.js";
 import routes from "./routes/index.js";
-import erros from "./middlewares/Erros.js";
+import manipuladorDeErros from "./middlewares/manipuladorDeErros.js";
 
 const connection = await connectDatabase();
 
@@ -16,6 +16,6 @@ connection.once("open", () => {
 const app = express();
 routes(app);
 
-app.use(erros);
+app.use(manipuladorDeErros);
 
 export default app;
