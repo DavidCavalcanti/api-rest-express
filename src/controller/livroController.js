@@ -3,9 +3,9 @@ import livro from "../models/Livro.js";
 class LivroController {
 
   static async listarLivros(req, res, next) {
-    try {
-      throw new Error();
-      
+    try {          
+      const livrosResultado = await livro.find().populate("autor").exec();
+      res.status(200).json(livrosResultado);
     } catch (erro) {
       next(erro);
     }
