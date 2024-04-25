@@ -16,7 +16,6 @@ connection.once("open", () => {
 const app = express();
 routes(app);
 
-// eslint-disable-next-line no-unused-vars
 app.use(erros);
 
 export default app;
