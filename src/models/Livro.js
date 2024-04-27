@@ -13,12 +13,16 @@ const livroSchema = new mongoose.Schema({
   },
   editora: {
     type: mongoose.Schema.Types.String,
-    required: [true, "A editora é obrigatória"]
+    required: [true, "A editora é obrigatória"],
+    enum: {
+      values: ["Casa do código", "Unihell", "Edições ASA"],
+      message: "A editora '{VALUE}' fornecida não é permitida."
+    }
   },
   numeroPaginas: { 
     type: mongoose.Schema.Types.Number,
-    min: [10, "O número de páginas deve estar entre 10 e 5000"],
-    max: [5000, "O número de páginas deve estar entre 10 e 5000."]
+    min: [10, "O número de páginas deve estar entre 10 e 5000. Valor fornecido: {VALUE}."],
+    max: [5000, "O número de páginas deve estar entre 10 e 5000. Valor fornecido: {VALUE}."]
   }
 }, { versionKey: false });
 
