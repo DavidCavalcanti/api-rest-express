@@ -64,10 +64,16 @@ class LivroController {
     }
   }
 
-  static async listarLivroPorEditora(req, res, next) {
-    const editora = req.query.editora;
+  static async listarLivroPorFiltro(req, res, next) {
+    const { editora, titulo } = req.query;
+
+    const busca = {};
+
+    if(editora) busca.editora = editora;
+    if(titulo) busca.titulo = titulo;
+
     try {
-      const livrosEditora = await livro.find({ editora: editora }); // 1º editora: é a propriedade editora que tem no banco. A 2º editora: é a variável que guarda a informação que chegará via rota
+      const livrosEditora = await livro.find(busca); 
       if (livrosEditora) {
         res.status(200).json(livrosEditora);
       } else {
